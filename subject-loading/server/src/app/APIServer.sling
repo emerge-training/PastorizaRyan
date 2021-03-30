@@ -1,0 +1,13 @@
+import jk.http.server
+import jk.server.web
+
+class is WebServer:
+
+func initializeServer(server as HTTPServer) override as bool
+{
+    assert base.initializeServer(server)
+    server.setCreateOptionsResponseHandler(func(req as HTTPServerRequest) as HTTPServerResponse {
+        return SystemConfig.getCorsUtil().handlePreflightRequest(req)
+    })
+    return true
+}
